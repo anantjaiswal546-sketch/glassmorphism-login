@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Edition | Next-Gen Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #dc2626; /* Deep red */
+            --secondary: #ef4444; /* Bright red */
+            --dark: #070b14; /* Dark background */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--dark);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1200px;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at center, #b91c1c 0%, #070b14 100%); /* Red gradient */
+        }
+
+        /* Main 3D Card */
+        .card-container {
+            width: 420px;
+            height: 580px;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .form-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(220, 38, 38, 0.3); /* Red glow */
+        }
+
+        .back-card { transform: rotateY(180deg); }
+
+        h2 { color: white; margin-bottom: 8px; font-size: 32px; text-align: center; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        p { color: #cbd5e1; text-align: center; margin-bottom: 30px; font-size: 14px; }
+
+        .input-box { position: relative; margin-bottom: 22px; }
+        .input-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); font-size: 18px; }
+
+        .input-box input {
+            width: 100%;
+            padding: 16px 18px 16px 50px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: white;
+            outline: none;
+            transition: 0.4s;
+        }
+
+        .input-box input:focus {
+            border-color: var(--secondary);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); /* Red glow on focus */
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.4s;
+            font-size: 17px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.4); /* Red shadow */
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(239, 68, 68, 0.6); /* Brighter red on hover */
+        }
+
+        .toggle-text { color: #94a3b8; text-align: center; margin-top: 25px; font-size: 14px; }
+        .toggle-text span { color: #fff; cursor: pointer; font-weight: bold; text-decoration: underline; transition: 0.3s; }
+        .toggle-text span:hover { color: var(--primary); }
+
+        .shop-icon { font-size: 50px; background: linear-gradient(to bottom, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; display: block; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div class="card-container" id="card">
+        <div class="form-card">
+            <i class="fas fa-shopping-bag shop-icon"></i>
+            <h2>Sign In</h2>
+            <p>Welcome Back</p>
+            
+            <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email Address">
+            </div>
+            <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password">
+            </div>
+            
+            <button class="btn">Login</button>
+            
+            <div class="toggle-text">
+                Don't have an account? <span onclick="flipCard()">Join the Club</span>
+            </div>
+        </div>
+
+        <div class="form-card back-card">
+            <i class="fas fa-user-astronaut shop-icon"></i>
+            <h2>Register</h2>
+            <p>Create your Account.</p>
+            
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Full Name">
+            </div>
+            <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email">
+            </div>
+            <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password">
+            </div>
+            
+            <button class="btn">Get Started</button>
+            
+            <div class="toggle-text">
+                Already registered? <span onclick="flipCard()">Login Here</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        function flipCard() {
+            document.getElementById('card').classList.toggle('flipped');
+        }
+
+        /* BOLD & LIGHT LINES CONFIGURATION */
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.8, "random": true }, // Zyada bright
+                "size": { "value": 4, "random": true },
+                "line_linked": { 
+                    "enable": true, 
+                    "distance": 150, 
+                    "color": "#dc2626", // Red glowing lines
+                    "opacity": 0.8,      // Full light
+                    "width": 2.5         // Bold lines
+                },
+                "move": { 
+                    "enable": true, 
+                    "speed": 3, 
+                    "direction": "none", 
+                    "random": false, 
+                    "straight": false, 
+                    "out_mode": "out", 
+                    "bounce": false 
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": true, "mode": "push" }
+                },
+                "modes": {
+                    "grab": { "distance": 200, "line_linked": { "opacity": 1 } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
