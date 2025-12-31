@@ -26,3 +26,4 @@ No external CSS or JavaScript files are required.
 3. Done ✅
 
 ## 📂 Project Structure
+<img width="1914" height="945" alt="Register" src="https://github.com/user-attachments/assets/818a9ad1-150d-4f01-8c97-cafc43fe745c" />
